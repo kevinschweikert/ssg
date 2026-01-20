@@ -12,8 +12,8 @@ packages = [
   { name = "gleam_regexp", version = "1.1.1", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "gleam_regexp", source = "hex", outer_checksum = "9C215C6CA84A5B35BB934A9B61A9A306EC743153BE2B0425A0D032E477B062A9" },
   { name = "gleam_stdlib", version = "0.65.0", build_tools = ["gleam"], requirements = [], otp_app = "gleam_stdlib", source = "hex", outer_checksum = "7C69C71D8C493AE11A5184828A77110EB05A7786EBF8B25B36A72F879C3EE107" },
   { name = "houdini", version = "1.2.0", build_tools = ["gleam"], requirements = [], otp_app = "houdini", source = "hex", outer_checksum = "5DB1053F1AF828049C2B206D4403C18970ABEF5C18671CA3C2D2ED0DD64F6385" },
-  { name = "jot", version = "9.0.0", build_tools = ["gleam"], requirements = ["gleam_stdlib", "houdini", "splitter"], otp_app = "jot", source = "hex", outer_checksum = "CB2150EBD742649A925C300AD9969F70CF755ECA98C6AEB92D4058611BCEF594" },
-  { name = "lustre", version = "5.4.0", build_tools = ["gleam"], requirements = ["gleam_erlang", "gleam_json", "gleam_otp", "gleam_stdlib", "houdini"], otp_app = "lustre", source = "hex", outer_checksum = "40E097BABCE65FB7C460C073078611F7F5802EB07E1A9BFB5C229F71B60F8E50" },
+  { name = "jot", version = "10.0.0", build_tools = ["gleam"], requirements = ["gleam_stdlib", "houdini", "splitter"], otp_app = "jot", source = "hex", outer_checksum = "F1600D8ADA1631540778A6A39F7AD87AD8EE8763D8A6BEB988B4AE059884076A" },
+  { name = "lustre", version = "5.5.2", build_tools = ["gleam"], requirements = ["gleam_erlang", "gleam_json", "gleam_otp", "gleam_stdlib", "houdini"], otp_app = "lustre", source = "hex", outer_checksum = "2DC2973D81C12E63251B636773217B8E09C5C84590A729750F6BCF009420B38E" },
   { name = "simplifile", version = "2.3.1", build_tools = ["gleam"], requirements = ["filepath", "gleam_stdlib"], otp_app = "simplifile", source = "hex", outer_checksum = "957E0E5B75927659F1D2A1B7B75D7B9BA96FAA8D0C53EA71C4AD9CD0C6B848F6" },
   { name = "splitter", version = "1.2.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "splitter", source = "hex", outer_checksum = "3DFD6B6C49E61EDAF6F7B27A42054A17CFF6CA2135FF553D0CB61C234D281DD0" },
   { name = "temporary", version = "1.0.0", build_tools = ["gleam"], requirements = ["envoy", "exception", "filepath", "gleam_crypto", "gleam_stdlib", "simplifile"], otp_app = "temporary", source = "hex", outer_checksum = "51C0FEF4D72CE7CA507BD188B21C1F00695B3D5B09D7DFE38240BFD3A8E1E9B3" },
@@ -24,8 +24,8 @@ packages = [
 filepath = { version = ">= 1.0.0 and < 2.0.0" }
 gleam_regexp = { version = ">= 1.0.0 and < 2.0.0" }
 gleam_stdlib = { version = ">= 0.34.0" }
-jot = { version = ">= 9.0.0 and < 10.0.0" }
-lustre = { version = ">= 5.0.0 and < 6.0.0" }
+jot = { version = ">= 10.0.0 and < 11.0.0" }
+lustre = { version = ">= 5.4.0 and < 6.0.0" }
 simplifile = { version = ">= 2.0.1 and < 3.0.0" }
 temporary = { version = ">= 1.0.0 and < 2.0.0" }
 tom = { version = ">= 1.0.0 and < 2.0.0" }

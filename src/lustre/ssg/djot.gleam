@@ -65,6 +65,7 @@ pub type Renderer(view) {
     insert: fn(String) -> view,
     delete: fn(String) -> view,
     mark: fn(String) -> view,
+    symbol: fn(String) -> view,
   )
 }
 
@@ -194,6 +195,9 @@ pub fn default_renderer() -> Renderer(Element(msg)) {
     insert: fn(content) { html.ins([], [html.text(content)]) },
     delete: fn(content) { html.del([], [html.text(content)]) },
     mark: fn(content) { html.mark([], [html.text(content)]) },
+    symbol: fn(content) {
+      html.span([attribute.class("symbol")], [html.text(content)])
+    },
   )
 }
 
@@ -489,6 +493,9 @@ fn render_inline(
     jot.Mark(content:) -> {
       renderer.mark(text_content(content))
     }
+    jot.Symbol(content:) -> {
+      renderer.symbol(content)
+    }
   }
 }
 
@@ -535,5 +542,6 @@ fn text_content(segments: List(jot.Inline)) -> String {
     jot.Delete(content:) -> text <> text_content(content)
     jot.Insert(content:) -> text <> text_content(content)
     jot.Mark(content:) -> text <> text_content(content)
+    jot.Symbol(content:) -> text <> content
   }
 }
