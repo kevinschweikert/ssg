@@ -48,8 +48,7 @@ pub type Renderer(view) {
       jot.OrdinalStyle,
       Int,
       List(List(view)),
-    ) ->
-      view,
+    ) -> view,
     raw_html: fn(String) -> view,
     strong: fn(List(view)) -> view,
     text: fn(String) -> view,
@@ -61,7 +60,7 @@ pub type Renderer(view) {
     display_math: fn(String) -> view,
     blockquote: fn(Dict(String, String), List(view)) -> view,
     span: fn(Dict(String, String), String) -> view,
-    div: fn(Dict(String, String), List(view)) -> view,
+    div: fn(Dict(String, String), Option(String), List(view)) -> view,
     insert: fn(String) -> view,
     delete: fn(String) -> view,
     mark: fn(String) -> view,
@@ -191,7 +190,13 @@ pub fn default_renderer() -> Renderer(Element(msg)) {
     span: fn(attrs, content) {
       html.span(to_attributes(attrs), [html.text(content)])
     },
-    div: fn(attrs, content) { html.div(to_attributes(attrs), content) },
+    div: fn(attrs, class, content) {
+      let attributes = case class {
+        option.Some(class) -> [attribute.class(class), ..to_attributes(attrs)]
+        option.None -> to_attributes(attrs)
+      }
+      html.div(attributes, content)
+    },
     insert: fn(content) { html.ins([], [html.text(content)]) },
     delete: fn(content) { html.del([], [html.text(content)]) },
     mark: fn(content) { html.mark([], [html.text(content)]) },
@@ -242,7 +247,9 @@ pub fn frontmatter(document: String) -> Result(String, Nil) {
 ///
 /// If the frontmatter is invalid TOML, this function returns a TOML parse error.
 ///
-pub fn metadata(document: String) -> Result(Dict(String, Toml), tom.ParseError) {
+pub fn metadata(
+  document: String,
+) -> Result(Dict(String, Toml), tom.ParseError) {
   case frontmatter(document) {
     Ok(frontmatter) -> tom.parse(frontmatter)
     Error(_) -> Ok(dict.new())
@@ -389,9 +396,10 @@ fn render_block(
         )),
       )
     }
-    jot.Div(attributes:, items:) -> {
+    jot.Div(attributes:, class:, items:) -> {
       renderer.div(
         attributes,
+        class,
         list.map(items, render_block(
           _,
           references,
