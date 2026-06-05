@@ -65,6 +65,8 @@ pub type Renderer(view) {
     delete: fn(String) -> view,
     mark: fn(String) -> view,
     symbol: fn(String) -> view,
+    subscript: fn(List(view)) -> view,
+    superscript: fn(List(view)) -> view,
   )
 }
 
@@ -203,6 +205,8 @@ pub fn default_renderer() -> Renderer(Element(msg)) {
     symbol: fn(content) {
       html.span([attribute.class("symbol")], [html.text(content)])
     },
+    subscript: fn(content) { html.sub([], content) },
+    superscript: fn(content) { html.sup([], content) },
   )
 }
 
@@ -504,6 +508,26 @@ fn render_inline(
     jot.Symbol(content:) -> {
       renderer.symbol(content)
     }
+    jot.Subscript(content:) -> {
+      renderer.subscript(
+        list.map(content, render_inline(
+          _,
+          references,
+          reference_attributes,
+          renderer,
+        )),
+      )
+    }
+    jot.Superscript(content:) -> {
+      renderer.subscript(
+        list.map(content, render_inline(
+          _,
+          references,
+          reference_attributes,
+          renderer,
+        )),
+      )
+    }
   }
 }
 
@@ -551,5 +575,7 @@ fn text_content(segments: List(jot.Inline)) -> String {
     jot.Insert(content:) -> text <> text_content(content)
     jot.Mark(content:) -> text <> text_content(content)
     jot.Symbol(content:) -> text <> content
+    jot.Superscript(content:) -> text <> text_content(content)
+    jot.Subscript(content:) -> text <> text_content(content)
   }
 }
